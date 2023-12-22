@@ -64,7 +64,7 @@ const [newNote, setNewNote] = useState(item.notes)
       <div className="flex items-center">
         {editNote ? (
           <input
-            className="bg-slate-300 w-[100vh] max-sm:w-[60vh] px-1 py-2 border-none outline-none transition-all"
+            className="bg-slate-300 w-[100vh] max-sm:w-[100%] px-1 py-2 border-none outline-none transition-all"
             type="text"
             value={newNote}
             onChange={(e)=> setNewNote(e.target.value)}
