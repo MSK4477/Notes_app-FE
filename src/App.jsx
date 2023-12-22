@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import { Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import {
@@ -10,6 +11,7 @@ import {
 import appContext from "./contexts/app_context.js";
 import UserFindHook from "./hooks/userFindHook.js";
 import NotesContainer from "./pages/notes/notes_container.jsx";
+import ProtectedPage from "./route/protected";
 function App() {
 
   const {user, notes} = UserFindHook()
@@ -25,7 +27,7 @@ function App() {
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/verify" element={<Verify />} />
-          <Route path="/notes" element={<NotesContainer />}/>
+          <Route path="/notes" element={<ProtectedPage element={<NotesContainer />} />} />
 
 
         </Routes>

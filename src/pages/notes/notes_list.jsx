@@ -1,6 +1,7 @@
 import { useState } from "react";
-import {deleteNote, getNotes, updateNote} from "../../services/notes_service.js"
+import {deleteNote, getNotes, updateNote, markAsCompleted} from "../../services/notes_service.js"
 import Loader from "../../components/loader.jsx";
+import toast from "react-hot-toast";
 /* eslint-disable react/prop-types */
 const NotesList = ({ item,  setUpdatedNotes, setLoader, loader }) => {
   const [editNote, setEditNote] = useState(false);
@@ -14,6 +15,7 @@ const [newNote, setNewNote] = useState(item.notes)
         await updateNote(id,{notes:newNote} )
         const notes = await getNotes()
         setUpdatedNotes(notes.data)
+        toast.success("Note Edited Succesfully")
         }
     } catch (error) {
         console.log(error)
@@ -29,6 +31,7 @@ const [newNote, setNewNote] = useState(item.notes)
         setLoader(true)
         const notes = await getNotes()
         setUpdatedNotes(notes.data)
+        toast.success("Deleted Succesfully")
     } catch (error) {
         console.log(error)
     }finally{ 
@@ -36,23 +39,41 @@ const [newNote, setNewNote] = useState(item.notes)
     }
    
   }
+  const markComplete = async (id, completed) => { 
+    try {
+      setLoader(true)
+      await markAsCompleted(id)
+      if(completed == false) { 
+      toast.success("Marked As Complated")
+      }else { 
+        toast.success("Removed From Completed")
+      }
+      console.log(completed, "comp")
+      const notes = await getNotes()
+      setUpdatedNotes(notes.data)
+    } catch (error) {
+      console.log(error)
+    }finally { 
+      setLoader(false)
+    }
+  }
   return (
 
     <>
-   { loader ? (<Loader/>) : (<div className="flex items-center justify-between w-[80%] m-auto mt-6 bg-white p-4 rounded shadow-md mb-2">
+   { loader ? (<Loader/>) : (<div className="flex max-sm:w-full items-center justify-between w-[80%] m-auto mt-6 bg-white p-4 rounded shadow-md mb-2">
       <div className="flex items-center">
         {editNote ? (
           <input
-            className="bg-slate-300 w-[100vh] px-1 py-2 border-none outline-none transition-all"
+            className="bg-slate-300 w-[100%] px-1 py-2 border-none outline-none transition-all"
             type="text"
             value={newNote}
             onChange={(e)=> setNewNote(e.target.value)}
           />
         ) : (
           <>
-            <input type="checkbox" className="mr-2" />
+            <input checked={item.completed} onClick={()=> markComplete(item._id, item.completed)} type="checkbox" className="mr-2" />
 
-            <div>{item.notes.length > 40 ? item.notes.substring(0, 40) + "..." : item.notes}</div>
+            <div className={item.completed ? "line-through" : ""}>{item.notes.length > 15 ? item.notes.substring(0, 15) + "..." : item.notes}</div>
           </>
         )}
         

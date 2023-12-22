@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Loader from "../../components/loader";
-import { loginUser } from "../../services/auth_services";
+import { loginUser, getUser } from "../../services/auth_services";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
   const [loader, setLoader] = useState(false);
 
@@ -12,6 +12,7 @@ const Login = () => {
     email: "",
     password: "",
   };
+  const navigate = useNavigate()
 
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email address").required("Email is required"),
@@ -24,6 +25,12 @@ const Login = () => {
     try {
       await loginUser(values);
       toast.success("Logged in successfully!");
+      navigate("/notes")
+      const res = await getUser();
+
+        if(res.user) { 
+        localStorage.setItem("user",JSON.stringify(res.user))
+        }
     } catch (error) {
       toast.error( error.response.data.error);
     } finally {

@@ -26,3 +26,10 @@ export const getNotes = async () => {
   const response = await axios.get(`${url}/notes/`, { withCredentials: true });
   return response.data;
 };
+
+//Mark as completed
+
+export const markAsCompleted = async(id) => { 
+  const response = await axios.get(`${url}/notes/complete/${id}`)
+  return response.data
+}
