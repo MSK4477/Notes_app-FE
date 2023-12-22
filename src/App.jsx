@@ -19,7 +19,7 @@ function App() {
     <appContext.Provider value= {{user, notes}}>
       <>
         <Routes>
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Register />} />
 <Route index path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
