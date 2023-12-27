@@ -48,7 +48,6 @@ const [newNote, setNewNote] = useState(item.notes)
       }else { 
         toast.success("Removed From Completed")
       }
-      console.log(completed, "comp")
       const notes = await getNotes()
       setUpdatedNotes(notes.data)
     } catch (error) {
@@ -73,22 +72,22 @@ const [newNote, setNewNote] = useState(item.notes)
           <>
             <input checked={item.completed} onClick={()=> markComplete(item._id, item.completed)} type="checkbox" className="mr-2" />
 
-            <div className={item.completed ? "line-through" : ""}>{item.notes.length > 15 ? item.notes.substring(0, 15) + "..." : item.notes}</div>
+            <div className={item.completed ? "line-through" : ""}>{item.notes.length > 20 ? item.notes.substring(0, 20) + "..." : item.notes}</div>
           </>
         )}
         
       </div>
       
-
+      {!item.completed && 
       <div className="flex items-center gap-5 space-x-2">
         <i
           onClick={() => edit(item._id)}
           className={`fas fa- ${editNote ? "fa-save" : "fa-edit"} text-blue-500 cursor-pointer`}
         ></i>
-        <i 
+       <i 
         onClick={() => Delete(item._id)}
         className="fas fa-trash text-red-500 cursor-pointer"></i>
-      </div>
+      </div>  }
 
     </div>)}
     </>

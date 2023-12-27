@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Notes_app-BE"
+		},
+		{
+			"path": "../../chat-app/chat-server"
+		},
+		{
+			"path": "../../inventory-app-frontend"
+		},
+		{
+			"path": "../../chat-app/chat-client"
+		},
+		{
+			"path": "../../chat-user"
+		}
+	],
+	"settings": {}
+}
