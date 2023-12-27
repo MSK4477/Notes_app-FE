@@ -84,9 +84,10 @@ const [newNote, setNewNote] = useState(item.notes)
           onClick={() => edit(item._id)}
           className={`fas fa- ${editNote ? "fa-save" : "fa-edit"} text-blue-500 cursor-pointer`}
         ></i>
-       <i 
+       {!editNote && <i 
         onClick={() => Delete(item._id)}
-        className="fas fa-trash text-red-500 cursor-pointer"></i>
+        className="fas fa-trash text-red-500 cursor-pointer"></i>}
+
       </div>  }
 
     </div>)}
